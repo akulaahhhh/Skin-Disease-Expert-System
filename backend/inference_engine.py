@@ -38,7 +38,8 @@ class InferenceEngine:
                 'pattern': None,
                 'diagnosis': None,
                 'treatment': [],
-                'explanation': self.fired_rules
+                'explanation': self.fired_rules,
+                'facts': user_facts # pass facts back for llm reasoning
             }
         
         # Step 2: Fire diagnosis rules
@@ -51,7 +52,8 @@ class InferenceEngine:
                 'pattern': pattern,
                 'diagnosis': None,
                 'treatment': [],
-                'explanation': self.fired_rules
+                'explanation': self.fired_rules,
+                'facts': user_facts # pass facts back for llm reasoning
             }
         
         # Step 3: Fire treatment rules
@@ -62,7 +64,8 @@ class InferenceEngine:
             'pattern': pattern,
             'diagnosis': diagnosis,
             'treatment': treatment,
-            'explanation': self.fired_rules
+            'explanation': self.fired_rules,
+            'facts': user_facts # pass facts back for llm reasoning
         }
     
     def _infer_pattern(self, user_facts):
