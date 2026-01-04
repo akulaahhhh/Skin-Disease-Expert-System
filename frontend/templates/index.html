@@ -1,124 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Skin Disease Expert System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
     <div class="container">
-        <!-- Landing Screen -->
-        <div id="landing-screen" class="screen active">
-            <div class="card">
-                <div class="logo">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#7C72E5"/>
-                        <circle cx="12" cy="12" r="4" fill="#7C72E5"/>
-                    </svg>
-                </div>
-                <h1>Skin Disease Expert System</h1>
-                <p class="subtitle">Get instant diagnosis based on your symptoms</p>
-                <button id="start-btn" class="btn-primary btn-large">START DIAGNOSIS</button>
+      <!-- Landing Screen -->
+      <div id="landing-screen" class="screen active">
+        <div class="card">
+          <div class="logo">
+            <svg
+              width="80"
+              height="80"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                fill="#7C72E5"
+              />
+              <circle cx="12" cy="12" r="4" fill="#7C72E5" />
+            </svg>
+          </div>
+          <h1>Skin Disease Expert System</h1>
+          <p class="subtitle">Get instant diagnosis based on your symptoms</p>
+          <button id="start-btn" class="btn-primary btn-large">
+            START DIAGNOSIS
+          </button>
+        </div>
+      </div>
+
+      <!-- Question Screen -->
+      <div id="question-screen" class="screen">
+        <div class="card">
+          <!-- Progress Indicator -->
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+          <div class="progress-text">
+            <span id="progress-current">1</span> /
+            <span id="progress-total">9</span>
+          </div>
+
+          <!-- Question Content -->
+          <div id="question-content" class="question-content">
+            <h2 id="question-text">Question will appear here</h2>
+
+            <!-- Options Container -->
+            <div id="options-container" class="options-container">
+              <!-- Options will be dynamically inserted here -->
             </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="button-group">
+            <button id="back-btn" class="btn-secondary" style="display: none">
+              BACK
+            </button>
+            <button id="next-btn" class="btn-primary">NEXT</button>
+          </div>
         </div>
+      </div>
 
-        <!-- Question Screen -->
-        <div id="question-screen" class="screen">
-            <div class="card">
-                <!-- Progress Indicator -->
-                <div class="progress-bar">
-                    <div id="progress-fill" class="progress-fill"></div>
-                </div>
-                <div class="progress-text">
-                    <span id="progress-current">1</span> / <span id="progress-total">9</span>
-                </div>
+      <!-- Results Screen -->
+      <div id="results-screen" class="screen">
+        <div class="card">
+          <div class="result-icon success" id="result-icon">
+            <svg
+              width="60"
+              height="60"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+                fill="white"
+              />
+            </svg>
+          </div>
 
-                <!-- Question Content -->
-                <div id="question-content" class="question-content">
-                    <h2 id="question-text">Question will appear here</h2>
-                    
-                    <!-- Options Container -->
-                    <div id="options-container" class="options-container">
-                        <!-- Options will be dynamically inserted here -->
-                    </div>
-                </div>
+          <h2 id="result-title">Diagnosis Complete</h2>
+          <p id="result-message" class="result-message"></p>
 
-                <!-- Navigation Buttons -->
-                <div class="button-group">
-                    <button id="back-btn" class="btn-secondary" style="display: none;">BACK</button>
-                    <button id="next-btn" class="btn-primary">NEXT</button>
-                </div>
+          <!-- Diagnosis Details -->
+          <div id="diagnosis-details" class="diagnosis-details">
+            <div class="detail-section">
+              <h3>Skin Condition Pattern</h3>
+              <p id="result-pattern" class="highlight">-</p>
             </div>
-        </div>
 
-        <!-- Results Screen -->
-        <div id="results-screen" class="screen">
-            <div class="card">
-                <div class="result-icon success" id="result-icon">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white"/>
-                    </svg>
-                </div>
-                
-                <h2 id="result-title">Diagnosis Complete</h2>
-                <p id="result-message" class="result-message"></p>
-
-                <!-- Diagnosis Details -->
-                <div id="diagnosis-details" class="diagnosis-details">
-                    <div class="detail-section">
-                        <h3>Skin Condition Pattern</h3>
-                        <p id="result-pattern" class="highlight">-</p>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <h3>Possible Diagnosis</h3>
-                        <p id="result-diagnosis" class="highlight diagnosis-name">-</p>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <h3>Suggested Treatment & Self-Care</h3>
-                        <ul id="result-treatment" class="treatment-list">
-                            <!-- Treatment items will be inserted here -->
-                        </ul>
-                    </div>
-
-                    <!-- Explanation (Rules Fired) -->
-                    <div class="detail-section collapsible">
-                        <h3 class="collapsible-header" id="explanation-header">
-                            <span>View Explanation</span>
-                            <svg class="chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 10l5 5 5-5H7z" fill="#7C72E5"/>
-                            </svg>
-                        </h3>
-                        <div id="explanation-content" class="explanation-content">
-                            <p class="explanation-intro">The diagnosis was based on the following rules:</p>
-                            <ol id="result-explanation" class="explanation-list">
-                                <!-- Fired rules will be inserted here -->
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Disclaimer -->
-                <div class="disclaimer">
-                    <p><strong>⚠️ Important:</strong> This is an educational expert system and should not replace professional medical advice. Please consult a dermatologist for proper diagnosis and treatment.</p>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="button-group">
-                    <button id="restart-btn" class="btn-primary">START NEW DIAGNOSIS</button>
-                </div>
+            <div class="detail-section">
+              <h3>Possible Diagnosis</h3>
+              <p id="result-diagnosis" class="highlight diagnosis-name">-</p>
             </div>
-        </div>
 
-        <!-- Loading Overlay -->
-        <div id="loading-overlay" class="loading-overlay">
-            <div class="spinner"></div>
-            <p>Analyzing your symptoms...</p>
+            <div class="detail-section">
+              <h3>Suggested Treatment & Self-Care</h3>
+              <ul id="result-treatment" class="treatment-list">
+                <!-- Treatment items will be inserted here -->
+              </ul>
+            </div>
+
+            <!-- Explanation (Rules Fired) -->
+            <div class="detail-section collapsible" id="rules-collapsible">
+              <h3 class="collapsible-header" id="rules-collapsible-header">
+                <span>View Fired Rules</span>
+                <svg
+                  class="chevron"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M7 10l5 5 5-5H7z" fill="#7C72E5" />
+                </svg>
+              </h3>
+              <div id="explanation-content" class="explanation-content">
+                <p class="explanation-intro">
+                  The diagnosis was based on the following rules:
+                </p>
+                <ol id="result-explanation" class="explanation-list">
+                  <!-- Fired rules will be inserted here -->
+                </ol>
+              </div>
+            </div>
+            <div class="detail-section collapsible" id="llm-collapsible">
+              <h3 class="collapsible-header" id="llm-collapsible-header">
+                <span>View Explanation</span>
+                <svg
+                  class="chevron"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M7 10l5 5 5-5H7z" fill="#7C72E5" />
+                </svg>
+              </h3>
+              <div id="explanation-llm-content" class="explanation-llm-content">
+                <p class="explanation-llm-intro">AI Explanation:</p>
+                <p id="result-llm-explanation">-</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Disclaimer -->
+          <div class="disclaimer">
+            <p>
+              <strong>⚠️ Important:</strong> This is an educational expert
+              system and should not replace professional medical advice. Please
+              consult a dermatologist for proper diagnosis and treatment.
+            </p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="button-group">
+            <button id="restart-btn" class="btn-primary">
+              START NEW DIAGNOSIS
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Analyzing your symptoms...</p>
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-</body>
+  </body>
 </html>
