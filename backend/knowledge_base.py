@@ -21,9 +21,10 @@ PATTERN_RULES = [
         'id': 'rule_1',
         'name': 'Rule 1: Inflammatory Pattern',
         'conditions': {
-            'itching': ['Mild', 'Severe'],
-            'lesion_appearance': ['Scaly / Flaky'],
-            'duration': ['Weeks', 'Months']
+            'duration': ['Yes'],
+            'symptoms': ['Mild Itching', 'Severe Itching', 'Burning Sensation'],
+            'lesion_appearance': ['Scaly / Flaky', 'Well-Demarcated'],
+            'lesion_size': ['Yes']
         },
         'conclusion': 'Inflammatory Pattern'
     },
@@ -31,18 +32,20 @@ PATTERN_RULES = [
         'id': 'rule_2',
         'name': 'Rule 2: Fungal Infection Pattern',
         'conditions': {
-            'lesion_appearance': ['Circular', 'Annular', 'Well-Demarcated'],
-            'itching': ['Mild', 'Severe']  # itching is present
+            'symptoms': ['Mild Itching', 'Severe Itching'],
+            'lesion_appearance': ['Circular', 'Annular', 'Scaly / Flaky', 'Well-Demarcated'],
+            'border': ['Raised'],
+            'lesion_size': ['Yes']
         },
         'conclusion': 'Fungal Infection Pattern'
     },
     {
         'id': 'rule_3',
-        'name': 'Rule 3: Bacterial/Pustular Pattern',
+        'name': 'Rule 3: Bacterial / Pustular Pattern',
         'conditions': {
-            'lesion_appearance': ['Papules / Pustules'],
-            'pain': ['Mild', 'Severe'],
-            'lesion_location': ['Face', 'Body']
+            'symptoms': ['Pain Sensation'],
+            'lesion_appearance': ['Papules / Pustules', 'Swollen'],
+            'lesion_size': ['Yes']
         },
         'conclusion': 'Bacterial/Pustular Pattern'
     },
@@ -50,9 +53,10 @@ PATTERN_RULES = [
         'id': 'rule_4',
         'name': 'Rule 4: Allergic Reaction Pattern',
         'conditions': {
-            'burning': ['Yes'],
-            'itching': ['Severe'],
-            'lesion_appearance': ['Swollen', 'Crusting / Oozing']
+            'duration': ['Yes'],
+            'symptoms': ['Severe Itching'],
+            'lesion_appearance': ['Swollen', 'Well-Demarcated'],
+            'lesion_size': ['No']
         },
         'conclusion': 'Allergic Reaction Pattern'
     },
@@ -60,23 +64,15 @@ PATTERN_RULES = [
         'id': 'rule_5',
         'name': 'Rule 5: Non-Healing Wound Pattern',
         'conditions': {
-            'lesion_appearance': ['Ulcer'],
-            'duration': ['Weeks', 'Months'],
-            'lesion_size': ['Medium 5mm ~ 20mm', 'Large > 20mm']
+            'duration': ['Yes'],
+            'symptoms': ['Pain Sensation'],
+            'lesion_appearance': ['Ulcer', 'Crusting / Oozing'],
+            'age_group': ['Elderly']
         },
         'conclusion': 'Non-Healing Wound Pattern'
-    },
-    {
-        'id': 'rule_6',
-        'name': 'Rule 6: Inflammatory Pattern (Alternative)',
-        'conditions': {
-            'lesion_appearance': ['Scaly / Flaky'],
-            'itching': ['Mild', 'Severe'],  # itching is present
-            'lesion_location': ['Hands', 'Body']
-        },
-        'conclusion': 'Inflammatory Pattern'
     }
 ]
+
 
 # ============================================
 # DIAGNOSIS RULES (Rules 7-11)
@@ -84,46 +80,45 @@ PATTERN_RULES = [
 
 DIAGNOSIS_RULES = [
     {
-        'id': 'rule_7',
-        'name': 'Rule 7: Eczema Diagnosis',
+        'id': 'rule_6',
+        'name': 'Rule 6: Eczema Diagnosis',
         'conditions': {
             'pattern': ['Inflammatory Pattern'],
-            'itching': ['Severe'],
-            'lesion_location': ['Hands', 'Body']
+            'symptoms': ['Severe Itching'],
+            'lesion_appearance': ['Hyperpigmented / Depigmented (White)'],
+            'border': ['Regular']
         },
         'conclusion': 'Eczema'
     },
     {
-        'id': 'rule_8',
-        'name': 'Rule 8: Fungal Tinea (Ringworm) Diagnosis',
+        'id': 'rule_7',
+        'name': 'Rule 7: Fungal Tinea (Ringworm) Diagnosis',
         'conditions': {
             'pattern': ['Fungal Infection Pattern'],
-            'lesion_appearance': ['Scaly / Flaky']
+            'lesion_appearance': ['Circular', 'Annular']
         },
         'conclusion': 'Fungal Tinea (Ringworm)'
     },
     {
-        'id': 'rule_9',
-        'name': 'Rule 9: Acne Vulgaris Diagnosis',
+        'id': 'rule_8',
+        'name': 'Rule 8: Acne Vulgaris Diagnosis',
         'conditions': {
             'pattern': ['Bacterial/Pustular Pattern'],
-            'lesion_location': ['Face'],
             'age_group': ['Child', 'Adult']
         },
         'conclusion': 'Acne Vulgaris'
     },
     {
-        'id': 'rule_10',
-        'name': 'Rule 10: Contact Dermatitis Diagnosis',
+        'id': 'rule_9',
+        'name': 'Rule 9: Contact Dermatitis Diagnosis',
         'conditions': {
-            'pattern': ['Allergic Reaction Pattern'],
-            'lesion_location': ['Hands', 'Face']
+            'pattern': ['Allergic Reaction Pattern']
         },
         'conclusion': 'Contact Dermatitis'
     },
     {
-        'id': 'rule_11',
-        'name': 'Rule 11: Skin Ulcer Diagnosis',
+        'id': 'rule_10',
+        'name': 'Rule 10: Skin Ulcer Diagnosis',
         'conditions': {
             'pattern': ['Non-Healing Wound Pattern']
         },
@@ -131,96 +126,70 @@ DIAGNOSIS_RULES = [
     }
 ]
 
+
 # ============================================
 # TREATMENT RULES (Rules 12-18)
 # ============================================
 
 TREATMENT_RULES = [
     {
-        'id': 'rule_12',
-        'name': 'Rule 12: Eczema Treatment (General)',
+        'id': 'rule_11',
+        'name': 'Rule 11: Eczema Treatment',
         'conditions': {
-            'diagnosis': ['Eczema'],
-            'lesion_location_not': ['Face']  # NOT face
+            'diagnosis': ['Eczema']
         },
         'conclusion': [
             'Moisturizers / emollients',
-            'Oral antihistamines',
-            'Topical corticosteroids'
+            'Topical corticosteroids',
+            'Avoid irritants and harsh products'
         ]
     },
     {
-        'id': 'rule_17',
-        'name': 'Rule 17: Eczema Treatment (Face) - PRIORITY',
+        'id': 'rule_12',
+        'name': 'Rule 12: Fungal Tinea Treatment',
         'conditions': {
-            'diagnosis': ['Eczema'],
-            'lesion_location': ['Face']
+            'diagnosis': ['Fungal Tinea (Ringworm)']
         },
         'conclusion': [
-            'Moisturizers / emollients ONLY'
-        ],
-        'priority': True  # Higher priority than Rule 12
+            'Topical antifungal creams',
+            'Avoid irritants and harsh products'
+        ]
     },
     {
         'id': 'rule_13',
-        'name': 'Rule 13: Fungal Tinea Treatment (General)',
-        'conditions': {
-            'diagnosis': ['Fungal Tinea (Ringworm)'],
-            'lesion_location_not': ['Hands', 'Legs']
-        },
-        'conclusion': [
-            'Topical antifungal creams',
-            'Keep affected area clean and dry'
-        ]
-    },
-    {
-        'id': 'rule_18',
-        'name': 'Rule 18: Fungal Tinea Treatment (Hands/Legs) - PRIORITY',
-        'conditions': {
-            'diagnosis': ['Fungal Tinea (Ringworm)'],
-            'lesion_location': ['Hands', 'Legs']
-        },
-        'conclusion': [
-            'Topical antifungal creams',
-            'Avoid moisture exposure'
-        ],
-        'priority': True
-    },
-    {
-        'id': 'rule_14',
-        'name': 'Rule 14: Acne Vulgaris Treatment',
+        'name': 'Rule 13: Acne Vulgaris Treatment',
         'conditions': {
             'diagnosis': ['Acne Vulgaris']
         },
         'conclusion': [
-            'Gentle cleansing',
-            'Avoid oily products'
+            'Proper wound care & hygiene',
+            'Avoid irritants and harsh products'
         ]
     },
     {
-        'id': 'rule_15',
-        'name': 'Rule 15: Contact Dermatitis Treatment',
+        'id': 'rule_14',
+        'name': 'Rule 14: Contact Dermatitis Treatment',
         'conditions': {
             'diagnosis': ['Contact Dermatitis']
         },
         'conclusion': [
-            'Avoid irritants and harsh products',
             'Oral antihistamines',
-            'Topical corticosteroids'
+            'Topical corticosteroids',
+            'Avoid irritants and harsh products'
         ]
     },
     {
-        'id': 'rule_16',
-        'name': 'Rule 16: Skin Ulcer Treatment',
+        'id': 'rule_15',
+        'name': 'Rule 15: Skin Ulcer Treatment',
         'conditions': {
             'diagnosis': ['Skin Ulcer']
         },
         'conclusion': [
-            'Proper wound care & hygiene',
-            'Hygiene maintenance'
+            'Proper wound care & hygiene'
         ]
     }
 ]
+
 
 # ============================================
 # QUESTION DEFINITIONS
@@ -240,8 +209,8 @@ QUESTIONS = [
         'options': ['Yes', 'No']
     },
     {
-        'id': 'symptom',
-        'question': 'Do you experience any of these symptoms?',
+        'id': 'symptoms',
+        'question': 'Do you experience any of these symptomss?',
         'type': 'multiple',
         'options': ['Mild Itching', 'Severe Itching', 'Pain Sensation', 'Burning Sensation']
     },
