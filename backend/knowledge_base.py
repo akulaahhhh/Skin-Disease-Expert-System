@@ -235,33 +235,15 @@ QUESTIONS = [
     },
     {
         'id': 'duration',
-        'question': 'How long have you had this skin condition?',
-        'type': 'single',
-        'options': ['Hours', 'Days', 'Weeks', 'Months']
-    },
-    {
-        'id': 'itching',
-        'question': 'Do you experience itching?',
-        'type': 'single',
-        'options': ['None', 'Mild', 'Severe']
-    },
-    {
-        'id': 'pain',
-        'question': 'Do you experience pain?',
-        'type': 'single',
-        'options': ['None', 'Mild', 'Severe']
-    },
-    {
-        'id': 'burning',
-        'question': 'Do you experience a burning sensation?',
+        'question': 'Do you experience this skin condition for more than a week?',
         'type': 'single',
         'options': ['Yes', 'No']
     },
     {
-        'id': 'lesion_location',
-        'question': 'Where is the skin condition located?',
+        'id': 'symptom',
+        'question': 'Do you experience any of these symptoms?',
         'type': 'multiple',
-        'options': ['Face', 'Body', 'Hands', 'Legs']
+        'options': ['Mild Itching', 'Severe Itching', 'Pain Sensation', 'Burning Sensation']
     },
     {
         'id': 'lesion_appearance',
@@ -277,14 +259,13 @@ QUESTIONS = [
             'Crusting / Oozing',
             'Hyperpigmented / Depigmented (White)',
             'Ulcer',
-            'Irregular mole'
         ]
     },
     {
         'id': 'lesion_size',
-        'question': 'What is the size of the lesion?',
+        'question': 'Is the size of the lesion larger than 5 mm?',
         'type': 'single',
-        'options': ['Small < 5mm', 'Medium 5mm ~ 20mm', 'Large > 20mm']
+        'options': ['Yes', 'No']
     },
     {
         'id': 'border',
