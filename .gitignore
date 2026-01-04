@@ -5,3 +5,5 @@ venv/
 # Other common Python ignored files
 __pycache__/
 *.pyc
+
+.env
