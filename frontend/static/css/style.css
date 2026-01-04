@@ -1,0 +1,502 @@
+/* 
+ * Skin Disease Expert System - Stylesheet
+ * Color Scheme: #7C72E5 (primary), #D9D4F7, #0C092A (font), #E8E5FA
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #7C72E5 0%, #9B95E8 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0C092A;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+}
+
+/* Screens */
+.screen {
+    display: none;
+    animation: fadeIn 0.4s ease-in;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card */
+.card {
+    background: white;
+    border-radius: 24px;
+    padding: 60px 50px;
+    box-shadow: 0 20px 60px rgba(12, 9, 42, 0.15);
+    text-align: center;
+}
+
+/* Landing Screen */
+.logo {
+    margin-bottom: 30px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0C092A;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #6B6B8B;
+    margin-bottom: 40px;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    padding: 18px 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: #7C72E5;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #6A5FD9;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(124, 114, 229, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-large {
+    padding: 22px 60px;
+    font-size: 1.1rem;
+    min-width: 250px;
+}
+
+.btn-secondary {
+    background: #E8E5FA;
+    color: #7C72E5;
+}
+
+.btn-secondary:hover {
+    background: #D9D4F7;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #E8E5FA;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #7C72E5;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+.progress-text {
+    font-size: 0.95rem;
+    color: #6B6B8B;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+/* Question Content */
+.question-content {
+    margin-bottom: 40px;
+}
+
+#question-text {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #0C092A;
+    margin-bottom: 40px;
+    line-height: 1.4;
+}
+
+/* Options Container */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Option Button (for single choice) */
+.option-btn {
+    padding: 20px 30px;
+    background: #F8F7FE;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #0C092A;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.option-btn:hover {
+    background: #E8E5FA;
+    border-color: #7C72E5;
+    transform: translateX(5px);
+}
+
+.option-btn.selected {
+    background: #7C72E5;
+    color: white;
+    border-color: #7C72E5;
+}
+
+/* Checkbox Container (for multiple choice) */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    padding: 18px 25px;
+    background: #F8F7FE;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container:hover {
+    background: #E8E5FA;
+    border-color: #7C72E5;
+}
+
+.checkbox-container.selected {
+    background: #E8E5FA;
+    border-color: #7C72E5;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+    accent-color: #7C72E5;
+}
+
+.checkbox-container label {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #0C092A;
+    cursor: pointer;
+    flex: 1;
+    text-align: left;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Results Screen */
+.result-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+}
+
+.result-icon.success {
+    background: #4CAF50;
+}
+
+.result-icon.warning {
+    background: #FF9800;
+}
+
+#result-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0C092A;
+    margin-bottom: 15px;
+}
+
+.result-message {
+    font-size: 1.1rem;
+    color: #6B6B8B;
+    margin-bottom: 40px;
+}
+
+/* Diagnosis Details */
+.diagnosis-details {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.detail-section {
+    background: #F8F7FE;
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+.detail-section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #7C72E5;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-section p {
+    font-size: 1.05rem;
+    color: #0C092A;
+    line-height: 1.6;
+}
+
+.highlight {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.diagnosis-name {
+    color: #7C72E5;
+    font-size: 1.4rem;
+}
+
+/* Treatment List */
+.treatment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.treatment-list li {
+    padding: 12px 0;
+    padding-left: 30px;
+    position: relative;
+    font-size: 1.05rem;
+    color: #0C092A;
+    line-height: 1.5;
+}
+
+.treatment-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #7C72E5;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Collapsible Explanation */
+.collapsible {
+    cursor: pointer;
+}
+
+.collapsible-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.collapsible-header:hover {
+    color: #6A5FD9;
+}
+
+.chevron {
+    transition: transform 0.3s ease;
+}
+
+.collapsible.open .chevron {
+    transform: rotate(180deg);
+}
+
+.explanation-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.collapsible.open .explanation-content {
+    max-height: 1000px;
+    margin-top: 15px;
+}
+
+.explanation-intro {
+    font-size: 0.95rem;
+    color: #6B6B8B;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.explanation-list {
+    padding-left: 25px;
+}
+
+.explanation-list li {
+    padding: 8px 0;
+    font-size: 0.95rem;
+    color: #0C092A;
+    line-height: 1.5;
+}
+
+/* Disclaimer */
+.disclaimer {
+    background: #FFF9E6;
+    border-left: 4px solid #FF9800;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.disclaimer p {
+    font-size: 0.95rem;
+    color: #0C092A;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(12, 9, 42, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    flex-direction: column;
+}
+
+.loading-overlay.active {
+    display: flex;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #E8E5FA;
+    border-top-color: #7C72E5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-overlay p {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        padding: 40px 30px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #question-text {
+        font-size: 1.4rem;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 16px 40px;
+        font-size: 0.95rem;
+    }
+
+    .btn-large {
+        padding: 18px 50px;
+        font-size: 1rem;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    #question-text {
+        font-size: 1.2rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+    }
+}
