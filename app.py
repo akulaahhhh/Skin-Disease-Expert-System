@@ -6,7 +6,15 @@ Handles routes and API endpoints
 from flask import Flask, render_template, request, jsonify, session
 from backend.inference_engine import InferenceEngine
 from backend.knowledge_base import QUESTIONS
+from backend.gemini_service import generate_explanation
 import secrets
+
+#llm gemini
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env
+load_dotenv()
 
 app = Flask(__name__, 
             template_folder='frontend/templates',
@@ -100,6 +108,13 @@ def diagnose():
     
     # Run inference
     result = engine.diagnose(answers)
+    explanation = generate_explanation(
+        pattern=result['pattern'],
+        diagnosis=result['diagnosis'],
+        facts=result['facts'],
+        triggered_rules=result['explanation']
+    )
+    result['llm_explanation'] = explanation
     
     return jsonify(result)
 
