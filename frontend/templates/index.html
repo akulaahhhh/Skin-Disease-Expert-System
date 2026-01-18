@@ -3,122 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skin Disease Expert System</title>
+    <meta name="description" content="Skin Disease Expert System - Get instant Rule Based skin condition diagnosis based on your symptoms">
+    <title>Skin Disease Expert System - Rule Based Diagnosis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239D8DF1'><circle cx='12' cy='12' r='10'/></svg>">
 </head>
 <body>
-    <div class="container">
-        <!-- Landing Screen -->
-        <div id="landing-screen" class="screen active">
-            <div class="card">
-                <div class="logo">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#7C72E5"/>
-                        <circle cx="12" cy="12" r="4" fill="#7C72E5"/>
-                    </svg>
-                </div>
-                <h1>Skin Disease Expert System</h1>
-                <p class="subtitle">Get instant diagnosis based on your symptoms</p>
-                <button id="start-btn" class="btn-primary btn-large">START DIAGNOSIS</button>
-            </div>
-        </div>
-
-        <!-- Question Screen -->
-        <div id="question-screen" class="screen">
-            <div class="card">
-                <!-- Progress Indicator -->
-                <div class="progress-bar">
-                    <div id="progress-fill" class="progress-fill"></div>
-                </div>
-                <div class="progress-text">
-                    <span id="progress-current">1</span> / <span id="progress-total">9</span>
-                </div>
-
-                <!-- Question Content -->
-                <div id="question-content" class="question-content">
-                    <h2 id="question-text">Question will appear here</h2>
-                    
-                    <!-- Options Container -->
-                    <div id="options-container" class="options-container">
-                        <!-- Options will be dynamically inserted here -->
-                    </div>
-                </div>
-
-                <!-- Navigation Buttons -->
-                <div class="button-group">
-                    <button id="back-btn" class="btn-secondary" style="display: none;">BACK</button>
-                    <button id="next-btn" class="btn-primary">NEXT</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Results Screen -->
-        <div id="results-screen" class="screen">
-            <div class="card">
-                <div class="result-icon success" id="result-icon">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white"/>
-                    </svg>
-                </div>
-                
-                <h2 id="result-title">Diagnosis Complete</h2>
-                <p id="result-message" class="result-message"></p>
-
-                <!-- Diagnosis Details -->
-                <div id="diagnosis-details" class="diagnosis-details">
-                    <div class="detail-section">
-                        <h3>Skin Condition Pattern</h3>
-                        <p id="result-pattern" class="highlight">-</p>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <h3>Possible Diagnosis</h3>
-                        <p id="result-diagnosis" class="highlight diagnosis-name">-</p>
-                    </div>
-                    
-                    <div class="detail-section">
-                        <h3>Suggested Treatment & Self-Care</h3>
-                        <ul id="result-treatment" class="treatment-list">
-                            <!-- Treatment items will be inserted here -->
-                        </ul>
-                    </div>
-
-                    <!-- Explanation (Rules Fired) -->
-                    <div class="detail-section collapsible">
-                        <h3 class="collapsible-header" id="explanation-header">
-                            <span>View Explanation</span>
-                            <svg class="chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 10l5 5 5-5H7z" fill="#7C72E5"/>
-                            </svg>
-                        </h3>
-                        <div id="explanation-content" class="explanation-content">
-                            <p class="explanation-intro">The diagnosis was based on the following rules:</p>
-                            <ol id="result-explanation" class="explanation-list">
-                                <!-- Fired rules will be inserted here -->
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Disclaimer -->
-                <div class="disclaimer">
-                    <p><strong>⚠️ Important:</strong> This is an educational expert system and should not replace professional medical advice. Please consult a dermatologist for proper diagnosis and treatment.</p>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="button-group">
-                    <button id="restart-btn" class="btn-primary">START NEW DIAGNOSIS</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Loading Overlay -->
-        <div id="loading-overlay" class="loading-overlay">
-            <div class="spinner"></div>
-            <p>Analyzing your symptoms...</p>
-        </div>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <div class="nav-brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <span>SkinDx Expert</span>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="/" class="nav-link active">Home</a>
+                <a href="/diagnosis" class="nav-link">Diagnosis</a>
+                <a href="/documentation" class="nav-link">Documentation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Rule Based Expert System
+                </div>
+                
+                <h1 class="hero-title">
+                    Intelligent <span class="hero-title-gradient">Skin Disease</span> Diagnosis
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Get instant, accurate skin condition analysis powered by our expert rule-based system. 
+                    Receive personalized treatment, lifestyle, and dietary recommendations.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="/diagnosis" class="btn btn-primary btn-lg">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        Start Diagnosis
+                    </a>
+                    <a href="/documentation" class="btn btn-secondary btn-lg">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                        View Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Features</span>
+                    <h2 class="section-title">How It Works</h2>
+                    <p class="section-subtitle">
+                        Our expert system uses a sophisticated 4-layer rule engine to provide comprehensive diagnosis
+                    </p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Patient Profile</h3>
+                        <p class="feature-description">
+                            Input your age group and allergy information for personalized recommendations
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Symptom Analysis</h3>
+                        <p class="feature-description">
+                            Describe your symptoms including itching, burning sensation, and pain levels
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 16v-4"/>
+                                <path d="M12 8h.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Lesion Details</h3>
+                        <p class="feature-description">
+                            Specify the appearance and size of your skin lesion for accurate identification
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4"/>
+                                <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.12 0 4.07.74 5.61 1.97"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">4-Layer Diagnosis</h3>
+                        <p class="feature-description">
+                            Receive disease identification, treatment, lifestyle, and diet recommendations
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="footer-text">
+                    © 2025 Skin Disease Expert System. For educational purposes only.
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,173 +1,237 @@
 """
 Inference Engine for Skin Disease Expert System
-Implements forward chaining with priority-based pattern selection
+Implements forward chaining with 4-layer rule evaluation
 """
 
 from backend.knowledge_base import (
-    PATTERN_RULES, DIAGNOSIS_RULES, TREATMENT_RULES, PATTERN_PRIORITY
+    DISEASE_RULES, TREATMENT_RULES, LIFESTYLE_RULES, DIET_RULES, DISEASE_INFO
 )
 
 
 class InferenceEngine:
     """
-    Forward chaining inference engine with explanation facility
+    Forward chaining inference engine with 4-layer rule evaluation
+    Layer 1: Disease Identification
+    Layer 2: Treatment Recommendation
+    Layer 3: Lifestyle Recommendation
+    Layer 4: Diet Recommendation
     """
     
     def __init__(self):
-        self.fired_rules = []  # Track which rules fired for explanation
+        self.fired_rules = []
         
     def diagnose(self, user_facts):
         """
-        Main diagnosis method using forward chaining
+        Main diagnosis method using forward chaining through 4 layers
         
         Args:
             user_facts (dict): User's answers to questions
             
         Returns:
-            dict: Diagnosis results with pattern, diagnosis, treatment, and explanation
+            dict: Complete diagnosis results with disease, treatment, lifestyle, and diet
         """
-        self.fired_rules = []  # Reset for new diagnosis
+        self.fired_rules = []
         
-        # Step 1: Fire pattern rules and select best pattern
-        pattern = self._infer_pattern(user_facts)
+        # Layer 1: Disease Identification
+        disease = self._infer_disease(user_facts)
         
-        if not pattern:
+        if not disease:
             return {
                 'success': False,
-                'message': 'No diagnosis found. Please consult a healthcare professional.',
-                'pattern': None,
-                'diagnosis': None,
+                'message': 'No diagnosis found based on the provided symptoms. Please consult a healthcare professional.',
+                'disease': None,
+                'contagious': None,
                 'treatment': [],
+                'lifestyle': [],
+                'diet': [],
                 'explanation': self.fired_rules
             }
         
-        # Step 2: Fire diagnosis rules
-        diagnosis = self._infer_diagnosis(pattern, user_facts)
+        # Add disease to facts for subsequent layers
+        facts_with_disease = user_facts.copy()
+        facts_with_disease['disease'] = disease
         
-        if not diagnosis:
-            return {
-                'success': False,
-                'message': 'Pattern identified but no specific diagnosis matched.',
-                'pattern': pattern,
-                'diagnosis': None,
-                'treatment': [],
-                'explanation': self.fired_rules
-            }
+        # Layer 2: Treatment Recommendation
+        treatments = self._infer_treatment(facts_with_disease)
         
-        # Step 3: Fire treatment rules
-        treatment = self._infer_treatment(diagnosis, user_facts)
+        # Layer 3: Lifestyle Recommendation
+        lifestyle = self._infer_lifestyle(facts_with_disease)
+        
+        # Layer 4: Diet Recommendation
+        diet = self._infer_diet(facts_with_disease)
+        
+        # Get disease info
+        disease_info = DISEASE_INFO.get(disease, {})
         
         return {
             'success': True,
-            'pattern': pattern,
-            'diagnosis': diagnosis,
-            'treatment': treatment,
+            'disease': disease,
+            'disease_description': disease_info.get('description', ''),
+            'contagious': disease_info.get('contagious', False),
+            'treatment': treatments,
+            'lifestyle': lifestyle,
+            'diet': diet,
             'explanation': self.fired_rules
         }
     
-    def _infer_pattern(self, user_facts):
+    def _infer_disease(self, user_facts):
         """
-        Fire all pattern rules and select highest priority pattern
+        Layer 1: Fire disease identification rules
         """
-        matched_patterns = []
-        
-        for rule in PATTERN_RULES:
-            if self._evaluate_rule(rule, user_facts):
-                matched_patterns.append(rule['conclusion'])
-                self.fired_rules.append(rule['name'])
-        
-        if not matched_patterns:
-            return None
-        
-        # Remove duplicates while preserving order
-        unique_patterns = list(dict.fromkeys(matched_patterns))
-        
-        # If multiple patterns, select highest priority
-        if len(unique_patterns) > 1:
-            best_pattern = max(unique_patterns, key=lambda p: PATTERN_PRIORITY.get(p, 0))
-            return best_pattern
-        
-        return unique_patterns[0]
-    
-    def _infer_diagnosis(self, pattern, user_facts):
-        """
-        Fire diagnosis rules based on selected pattern
-        """
-        # Add pattern to facts for diagnosis rules
-        facts_with_pattern = user_facts.copy()
-        facts_with_pattern['pattern'] = pattern
-        
-        for rule in DIAGNOSIS_RULES:
-            if self._evaluate_rule(rule, facts_with_pattern):
-                self.fired_rules.append(rule['name'])
+        for rule in DISEASE_RULES:
+            if self._evaluate_disease_rule(rule, user_facts):
+                self.fired_rules.append({
+                    'layer': 1,
+                    'rule_id': rule['id'],
+                    'name': rule['name'],
+                    'logic': rule['logic'],
+                    'conclusion': rule['conclusion']
+                })
                 return rule['conclusion']
-        
         return None
     
-    def _infer_treatment(self, diagnosis, user_facts):
+    def _evaluate_disease_rule(self, rule, facts):
         """
-        Fire treatment rules based on diagnosis
-        Priority rules fire first (Rule 17, Rule 18)
-        """
-        facts_with_diagnosis = user_facts.copy()
-        facts_with_diagnosis['diagnosis'] = diagnosis
-        
-        # Sort rules: priority rules first
-        sorted_rules = sorted(TREATMENT_RULES, 
-                            key=lambda r: r.get('priority', False), 
-                            reverse=True)
-        
-        for rule in sorted_rules:
-            if self._evaluate_rule(rule, facts_with_diagnosis):
-                self.fired_rules.append(rule['name'])
-                return rule['conclusion']
-        
-        return []
-    
-    def _evaluate_rule(self, rule, facts):
-        """
-        Evaluate if a rule's conditions are satisfied by the facts
-        
-        Args:
-            rule (dict): Rule with conditions
-            facts (dict): User facts
-            
-        Returns:
-            bool: True if all conditions are met
+        Evaluate disease identification rule conditions
         """
         conditions = rule['conditions']
         
-        for key, required_values in conditions.items():
-            # Handle negative conditions (NOT)
-            if key.endswith('_not'):
-                actual_key = key.replace('_not', '')
-                user_value = facts.get(actual_key)
-                
-                # For multiple selections (lists)
-                if isinstance(user_value, list):
-                    # Check if ANY required value is in user's selection (then fail)
-                    if any(val in user_value for val in required_values):
-                        return False
-                else:
-                    # For single selection
-                    if user_value in required_values:
-                        return False
+        for key, required_value in conditions.items():
+            # Skip disease_not conditions (handled separately)
+            if key == 'disease_not':
                 continue
-            
-            # Normal conditions
+                
             user_value = facts.get(key)
             
             if user_value is None:
                 return False
             
-            # Handle multiple selections (lesion_appearance, lesion_location)
-            if isinstance(user_value, list):
-                # Check if ANY required value is in user's selection
-                if not any(val in user_value for val in required_values):
+            # Handle appearance (multiple selection in both rule and user input)
+            if key == 'appearance':
+                # User's appearance is a list, required is also a list
+                # Need to check if ANY of the required values are in user's selection
+                if isinstance(user_value, list):
+                    if not any(val in user_value for val in required_value):
+                        return False
+                else:
+                    return False
+            
+            # Handle allergy with list of valid values
+            elif key == 'allergy':
+                if isinstance(required_value, list):
+                    if user_value not in required_value:
+                        return False
+                else:
+                    if user_value != required_value:
+                        return False
+            
+            # Handle single value comparison
+            else:
+                if isinstance(required_value, list):
+                    if user_value not in required_value:
+                        return False
+                else:
+                    if user_value != required_value:
+                        return False
+        
+        return True
+    
+    def _infer_treatment(self, facts):
+        """
+        Layer 2: Fire treatment rules
+        """
+        treatments = []
+        
+        for rule in TREATMENT_RULES:
+            if self._evaluate_rule_with_disease(rule, facts):
+                self.fired_rules.append({
+                    'layer': 2,
+                    'rule_id': rule['id'],
+                    'name': rule['name'],
+                    'logic': rule['logic'],
+                    'conclusion': rule['conclusion']
+                })
+                if rule['conclusion'] not in treatments:
+                    treatments.append(rule['conclusion'])
+        
+        return treatments
+    
+    def _infer_lifestyle(self, facts):
+        """
+        Layer 3: Fire lifestyle rules
+        """
+        lifestyle = []
+        
+        for rule in LIFESTYLE_RULES:
+            if self._evaluate_rule_with_disease(rule, facts):
+                self.fired_rules.append({
+                    'layer': 3,
+                    'rule_id': rule['id'],
+                    'name': rule['name'],
+                    'logic': rule['logic'],
+                    'conclusion': rule['conclusion']
+                })
+                # Conclusion can be a list
+                if isinstance(rule['conclusion'], list):
+                    for item in rule['conclusion']:
+                        if item not in lifestyle:
+                            lifestyle.append(item)
+                else:
+                    if rule['conclusion'] not in lifestyle:
+                        lifestyle.append(rule['conclusion'])
+        
+        return lifestyle
+    
+    def _infer_diet(self, facts):
+        """
+        Layer 4: Fire diet rules
+        """
+        diet = []
+        
+        for rule in DIET_RULES:
+            if self._evaluate_rule_with_disease(rule, facts):
+                self.fired_rules.append({
+                    'layer': 4,
+                    'rule_id': rule['id'],
+                    'name': rule['name'],
+                    'logic': rule['logic'],
+                    'conclusion': rule['conclusion']
+                })
+                # Conclusion can be a list
+                if isinstance(rule['conclusion'], list):
+                    for item in rule['conclusion']:
+                        if item not in diet:
+                            diet.append(item)
+                else:
+                    if rule['conclusion'] not in diet:
+                        diet.append(rule['conclusion'])
+        
+        return diet
+    
+    def _evaluate_rule_with_disease(self, rule, facts):
+        """
+        Evaluate rules that may have disease conditions and disease_not conditions
+        """
+        conditions = rule['conditions']
+        
+        for key, required_value in conditions.items():
+            # Handle negative disease condition
+            if key == 'disease_not':
+                if facts.get('disease') == required_value:
+                    return False
+                continue
+            
+            user_value = facts.get(key)
+            
+            if user_value is None:
+                return False
+            
+            # Handle value comparison
+            if isinstance(required_value, list):
+                if user_value not in required_value:
                     return False
             else:
-                # Single selection must match
-                if user_value not in required_values:
+                if user_value != required_value:
                     return False
         
         return True

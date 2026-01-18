@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation for the Skin Disease Expert System including input variables, output variables, and rule layers">
+    <title>Documentation - Skin Disease Expert System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239D8DF1'><circle cx='12' cy='12' r='10'/></svg>">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <div class="nav-brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <span>SkinDx Expert</span>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/diagnosis" class="nav-link">Diagnosis</a>
+                <a href="/documentation" class="nav-link active">Documentation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content documentation-page">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Reference</span>
+                <h1 class="section-title">System Documentation</h1>
+                <p class="section-subtitle">
+                    Comprehensive documentation of the expert system's variables, rules, and architecture
+                </p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="doc-tabs" id="docTabs">
+                <button class="doc-tab active" data-tab="input">Input Variables</button>
+                <button class="doc-tab" data-tab="output">Output Variables</button>
+                <button class="doc-tab" data-tab="rules">Rule Layers</button>
+                <button class="doc-tab" data-tab="architecture">Architecture</button>
+            </div>
+
+            <!-- Input Variables Tab -->
+            <div class="doc-content active" id="tab-input">
+                <div class="glass-card">
+                    <h2 class="form-section-title mb-8">Input Variables</h2>
+                    
+                    <!-- Patient Profile -->
+                    <h3 class="text-primary mb-4" style="font-size: 1.1rem;">Patient Profile</h3>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Type</th>
+                                    <th>Values</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Age Group</td>
+                                    <td>Selection</td>
+                                    <td>Child / Adult / Elderly</td>
+                                </tr>
+                                <tr>
+                                    <td>Allergy</td>
+                                    <td>Selection</td>
+                                    <td>None / Peanut / Seafood</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Symptoms -->
+                    <h3 class="text-primary mb-4 mt-8" style="font-size: 1.1rem;">Symptoms</h3>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Type</th>
+                                    <th>Values</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Itching</td>
+                                    <td>Selection</td>
+                                    <td>Yes / No</td>
+                                </tr>
+                                <tr>
+                                    <td>Burning Sensation</td>
+                                    <td>Selection</td>
+                                    <td>Yes / No</td>
+                                </tr>
+                                <tr>
+                                    <td>Pain</td>
+                                    <td>Selection</td>
+                                    <td>Yes / No</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Lesion Appearance -->
+                    <h3 class="text-primary mb-4 mt-8" style="font-size: 1.1rem;">Lesion Appearance</h3>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Type</th>
+                                    <th>Values</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Appearance</td>
+                                    <td>Multiple Selection</td>
+                                    <td>Circular, Annular, Scaly / Flaky, Well-Demarcated, Swollen, Papules / Pustules, Crusting / Oozing, Hyperpigmented / Depigmented, Ulcer</td>
+                                </tr>
+                                <tr>
+                                    <td>Lesion Size</td>
+                                    <td>Selection</td>
+                                    <td>Larger than 5mm / Smaller than 5mm</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Variables Tab -->
+            <div class="doc-content" id="tab-output">
+                <div class="glass-card">
+                    <h2 class="form-section-title mb-8">Output Variables</h2>
+                    
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Type</th>
+                                    <th>Possible Values</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Disease</td>
+                                    <td>Inference Result</td>
+                                    <td>Eczema, Contact Dermatitis, Ringworm, Acne Vulgaris, Skin Ulcer</td>
+                                </tr>
+                                <tr>
+                                    <td>Treatment</td>
+                                    <td>Recommendation</td>
+                                    <td>Topical Corticosteroid, Moisturizer Therapy, Antifungal Cream, Antibiotic Ointment, Pain Relief Medication</td>
+                                </tr>
+                                <tr>
+                                    <td>Lifestyle</td>
+                                    <td>Recommendation</td>
+                                    <td>Avoid Sharing Personal Items, Maintain Skin Hygiene, Avoid Scratching, Avoid Irritants, Regular Wound Care, Reduce Sun Exposure, Seek Medical Attention</td>
+                                </tr>
+                                <tr>
+                                    <td>Diet</td>
+                                    <td>Recommendation</td>
+                                    <td>Avoid Peanut Products, Avoid Seafood, Anti-Inflammatory Diet, Low Sugar Diet, High Protein Diet, Adequate Hydration</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rules Tab -->
+            <div class="doc-content" id="tab-rules">
+                <div class="glass-card">
+                    <h2 class="form-section-title mb-8">Rule Layers</h2>
+                    
+                    <!-- Layer 1 -->
+                    <h3 class="text-primary mb-4" style="font-size: 1.1rem;">
+                        <span class="layer-badge">Layer 1</span> Disease Identification
+                    </h3>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Disease</th>
+                                    <th>Condition</th>
+                                    <th>Contagious</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Eczema</td>
+                                    <td><code class="code-block">IF Itching AND (Allergy OR NOT Allergy) AND (Scaly OR Hyperpigmented OR Small_Lesions)</code></td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td>Contact Dermatitis</td>
+                                    <td><code class="code-block">IF Burning_Sensation AND Allergy AND (Well_Demarcated OR Crusting OR Swollen)</code></td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td>Ringworm</td>
+                                    <td><code class="code-block">IF Itching AND (Circular OR Annular OR Scaly)</code></td>
+                                    <td>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Acne Vulgaris</td>
+                                    <td><code class="code-block">IF Papules_Pustules AND (Small_Lesions OR NOT Pain)</code></td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td>Skin Ulcer</td>
+                                    <td><code class="code-block">IF Ulcer AND Pain AND Large_Lesions</code></td>
+                                    <td>No</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Layer 2 -->
+                    <h3 class="text-primary mb-4 mt-8" style="font-size: 1.1rem;">
+                        <span class="layer-badge">Layer 2</span> Suggested Treatment
+                    </h3>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Treatment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Eczema AND Large_Lesions</code></td>
+                                    <td>Topical Corticosteroid</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Eczema AND Small_Lesions</code></td>
+                                    <td>Moisturizer Therapy</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Ringworm</code></td>
+                                    <td>Antifungal Cream</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Acne_Vulgaris AND Small_Lesions</code></td>
+                                    <td>Antibiotic Ointment</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Contact_Dermatitis</code></td>
+                                    <td>Topical Corticosteroid</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Skin_Ulcer AND Pain</code></td>
+                                    <td>Antibiotic Ointment</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Pain AND NOT Disease = Acne_Vulgaris</code></td>
+                                    <td>Pain Relief Medication</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Layer 3 -->
+                    <h3 class="text-primary mb-4 mt-8" style="font-size: 1.1rem;">
+                        <span class="layer-badge">Layer 3</span> Suggested Lifestyle
+                    </h3>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Lifestyle Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Ringworm</code></td>
+                                    <td>Avoid Sharing Personal Items OR Maintain Skin Hygiene</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Eczema AND Age_Group = Child</code></td>
+                                    <td>Avoid Scratching</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Eczema AND Age_Group = Adult</code></td>
+                                    <td>Avoid Irritants</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Eczema AND Age_Group = Elderly</code></td>
+                                    <td>Regular Wound Care</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Acne_Vulgaris AND Age_Group = Adult</code></td>
+                                    <td>Reduce Sun Exposure</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Contact_Dermatitis</code></td>
+                                    <td>Avoid Irritants</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Lesion_Size = Large AND NOT Disease = Acne_Vulgaris</code></td>
+                                    <td>Seek Medical Attention</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Age_Group = Elderly AND Pain</code></td>
+                                    <td>Regular Wound Care</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Layer 4 -->
+                    <h3 class="text-primary mb-4 mt-8" style="font-size: 1.1rem;">
+                        <span class="layer-badge">Layer 4</span> Diet Recommendation
+                    </h3>
+                    <div class="doc-table-wrapper">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Diet Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="code-block">IF Allergy = Peanut</code></td>
+                                    <td>Avoid Peanut Products</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Allergy = Seafood</code></td>
+                                    <td>Avoid Seafood</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Eczema AND NOT Allergy</code></td>
+                                    <td>Anti-Inflammatory Diet</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Acne_Vulgaris</code></td>
+                                    <td>Low Sugar Diet</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Disease = Skin_Ulcer</code></td>
+                                    <td>High Protein Diet</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Age_Group = Elderly AND NOT Disease = Acne_Vulgaris</code></td>
+                                    <td>High Protein Diet</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="code-block">IF Age_Group = Child AND NOT Allergy</code></td>
+                                    <td>Adequate Hydration</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Tab -->
+            <div class="doc-content" id="tab-architecture">
+                <div class="glass-card architecture-section">
+                    <h2 class="form-section-title mb-8">System Architecture</h2>
+                    <p class="text-muted mb-8">
+                        The expert system uses a 4-layer forward chaining inference engine to process user inputs and generate comprehensive recommendations.
+                    </p>
+                    
+                    <div class="architecture-diagram">
+                        <div class="architecture-layers">
+                            <div class="arch-layer">
+                                <div class="arch-layer-title">📝 User Input</div>
+                                <div class="arch-layer-desc">Patient Profile, Symptoms, Lesion Appearance</div>
+                            </div>
+                            <div class="arch-layer">
+                                <div class="arch-layer-title">🔍 Layer 1: Disease Identification</div>
+                                <div class="arch-layer-desc">Forward chaining to identify skin disease based on symptoms</div>
+                            </div>
+                            <div class="arch-layer">
+                                <div class="arch-layer-title">💊 Layer 2: Treatment Recommendation</div>
+                                <div class="arch-layer-desc">Determine appropriate treatment based on disease and symptoms</div>
+                            </div>
+                            <div class="arch-layer">
+                                <div class="arch-layer-title">🏃 Layer 3: Lifestyle Recommendation</div>
+                                <div class="arch-layer-desc">Suggest lifestyle modifications based on disease and age</div>
+                            </div>
+                            <div class="arch-layer">
+                                <div class="arch-layer-title">🥗 Layer 4: Diet Recommendation</div>
+                                <div class="arch-layer-desc">Recommend dietary changes based on disease and allergies</div>
+                            </div>
+                            <div class="arch-layer" style="background: rgba(157, 141, 241, 0.1);">
+                                <div class="arch-layer-title">📊 Diagnosis Report</div>
+                                <div class="arch-layer-desc">Complete results with all recommendations</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h3 class="text-primary mb-4" style="font-size: 1.1rem;">Key Components</h3>
+                        <div class="doc-table-wrapper">
+                            <table class="doc-table">
+                                <thead>
+                                    <tr>
+                                        <th>Component</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Knowledge Base</td>
+                                        <td>Contains all rules, input definitions, and output variables. Rules are organized into 4 layers for different types of inference.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inference Engine</td>
+                                        <td>Uses forward chaining algorithm to evaluate rules layer by layer. Applies pattern matching to determine applicable rules.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>User Interface</td>
+                                        <td>Web-based interface built with Flask. Provides forms for input collection and displays diagnosis results.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Explanation Facility</td>
+                                        <td>Tracks which rules fired during inference and displays them to the user for transparency.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="footer-text">
+                    © 2025 Skin Disease Expert System. For educational purposes only.
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Tab switching
+        const tabs = document.querySelectorAll('.doc-tab');
+        const tabContents = document.querySelectorAll('.doc-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.tab;
+
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update active content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `tab-${targetId}`) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
