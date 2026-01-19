@@ -44,174 +44,225 @@
 
     <!-- Main Content -->
     <main class="main-content report-page">
-        <div class="container report-container">
-            <!-- Report Header -->
-            <div class="report-header">
-                <div class="result-status success" id="resultStatus">
-                    <svg class="result-status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
-                    <span id="statusText">Diagnosis Complete</span>
-                </div>
-                <h1 class="section-title">Your Diagnosis Report</h1>
-                <p class="section-subtitle" id="reportSubtitle">
-                    Based on your symptoms, here is your personalized analysis
-                </p>
-            </div>
-
+        <div class="container">
             <!-- No Result Message -->
-            <div id="noResultMessage" class="glass-card text-center" style="display: none;">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--warning); margin-bottom: 24px;">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 8v4"/>
-                    <path d="M12 16h.01"/>
-                </svg>
-                <h2 style="color: white; margin-bottom: 16px;">No Diagnosis Result Found</h2>
-                <p class="text-muted" style="margin-bottom: 32px;">Please complete the diagnosis form first to receive your personalized report.</p>
-                <a href="/diagnosis" class="btn btn-primary">Start Diagnosis</a>
+            <div id="noResultMessage" class="report-no-result" style="display: none;">
+                <div class="no-result-card">
+                    <div class="no-result-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v4"/>
+                            <path d="M12 16h.01"/>
+                        </svg>
+                    </div>
+                    <h2>No Diagnosis Result Found</h2>
+                    <p>Please complete the diagnosis form first to receive your personalized report.</p>
+                    <a href="/diagnosis" class="btn btn-primary">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                        Start Diagnosis
+                    </a>
+                </div>
             </div>
 
             <!-- Report Content -->
-            <div class="report-grid" id="reportContent" style="display: none;">
+            <div id="reportContent" style="display: none;">
+                <!-- Report Header -->
+                <div class="report-header-modern">
+                    <div class="report-profile-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h1 class="report-main-title">DIAGNOSIS REPORT</h1>
+                    <p class="report-date" id="reportDate">Generated on January 19, 2026</p>
+                    <p class="report-patient-info" id="patientInfo">Patient Assessment Complete</p>
+                </div>
+
                 <!-- Disease Overview Card -->
-                <div class="glass-card result-card">
-                    <div class="result-card-header">
-                        <div class="result-card-icon">
+                <div class="report-disease-card" id="diseaseCard">
+                    <div class="disease-card-header">
+                        <div class="disease-icon-wrapper">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 16v-4"/>
-                                <path d="M12 8h.01"/>
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                             </svg>
                         </div>
-                        <div>
-                            <h2 class="result-card-title">Detected Condition</h2>
-                            <p class="result-card-subtitle">Disease Overview</p>
+                        <div class="disease-header-content">
+                            <span class="disease-label">IDENTIFIED CONDITION</span>
+                            <h2 class="disease-name-large" id="diseaseName">-</h2>
+                        </div>
+                        <div class="disease-tag-wrapper">
+                            <span class="disease-tag-modern" id="diseaseTag">
+                                <span id="diseaseTagText">Non-Contagious</span>
+                            </span>
                         </div>
                     </div>
-                    <div class="result-card-body">
-                        <h3 class="disease-name" id="diseaseName">-</h3>
-                        <p class="disease-description" id="diseaseDescription">-</p>
-                        <span class="disease-tag not-contagious" id="diseaseTag">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span id="diseaseTagText">Non-Contagious</span>
-                        </span>
+                    <div class="disease-card-body">
+                        <p class="disease-description-text" id="diseaseDescription">-</p>
                     </div>
                 </div>
 
-                <!-- Treatment Card -->
-                <div class="glass-card result-card">
-                    <div class="result-card-header">
-                        <div class="result-card-icon">
+                <!-- Quick Stats Row -->
+                <div class="quick-stats-row">
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon treatment-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                        <div class="quick-stat-content">
+                            <span class="quick-stat-label">Treatments</span>
+                            <span class="quick-stat-value" id="treatmentCount">0</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon lifestyle-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="quick-stat-content">
+                            <span class="quick-stat-label">Lifestyle Tips</span>
+                            <span class="quick-stat-value" id="lifestyleCount">0</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon diet-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                            </svg>
+                        </div>
+                        <div class="quick-stat-content">
+                            <span class="quick-stat-label">Diet Plans</span>
+                            <span class="quick-stat-value" id="dietCount">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Treatment Section -->
+                <section class="recommendation-section" id="treatmentSection">
+                    <div class="section-header-modern">
+                        <div class="section-icon treatment-bg">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
                             </svg>
                         </div>
                         <div>
-                            <h2 class="result-card-title">Suggested Treatment</h2>
-                            <p class="result-card-subtitle">Recommended therapies</p>
+                            <h3 class="section-title-modern">Suggested Treatment</h3>
+                            <p class="section-subtitle-modern">Medical recommendations for your condition</p>
                         </div>
                     </div>
-                    <div class="result-card-body">
-                        <ul class="recommendation-list" id="treatmentList">
-                            <!-- Treatment items will be inserted here -->
-                        </ul>
+                    <div class="recommendation-cards" id="treatmentCards">
+                        <!-- Treatment cards will be inserted here -->
                     </div>
-                </div>
+                </section>
 
-                <!-- Lifestyle Card -->
-                <div class="glass-card result-card">
-                    <div class="result-card-header">
-                        <div class="result-card-icon">
+                <!-- Lifestyle Section -->
+                <section class="recommendation-section" id="lifestyleSection">
+                    <div class="section-header-modern">
+                        <div class="section-icon lifestyle-bg">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
                             </svg>
                         </div>
                         <div>
-                            <h2 class="result-card-title">Suggested Lifestyle</h2>
-                            <p class="result-card-subtitle">Daily habits to improve</p>
+                            <h3 class="section-title-modern">Suggested Lifestyle</h3>
+                            <p class="section-subtitle-modern">Daily habits to support healing</p>
                         </div>
                     </div>
-                    <div class="result-card-body">
-                        <ul class="recommendation-list" id="lifestyleList">
-                            <!-- Lifestyle items will be inserted here -->
-                        </ul>
+                    <div class="recommendation-cards" id="lifestyleCards">
+                        <!-- Lifestyle cards will be inserted here -->
                     </div>
-                </div>
+                </section>
 
-                <!-- Diet Card -->
-                <div class="glass-card result-card">
-                    <div class="result-card-header">
-                        <div class="result-card-icon">
+                <!-- Diet Section -->
+                <section class="recommendation-section" id="dietSection">
+                    <div class="section-header-modern">
+                        <div class="section-icon diet-bg">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
                                 <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                                <line x1="6" y1="1" x2="6" y2="4"/>
-                                <line x1="10" y1="1" x2="10" y2="4"/>
-                                <line x1="14" y1="1" x2="14" y2="4"/>
                             </svg>
                         </div>
                         <div>
-                            <h2 class="result-card-title">Diet Recommendation</h2>
-                            <p class="result-card-subtitle">Nutritional guidance</p>
+                            <h3 class="section-title-modern">Diet Recommendation</h3>
+                            <p class="section-subtitle-modern">Nutritional guidance for recovery</p>
                         </div>
                     </div>
-                    <div class="result-card-body">
-                        <ul class="recommendation-list" id="dietList">
-                            <!-- Diet items will be inserted here -->
-                        </ul>
+                    <div class="recommendation-cards" id="dietCards">
+                        <!-- Diet cards will be inserted here -->
                     </div>
-                </div>
+                </section>
 
-                <!-- Explanation Card -->
-                <div class="glass-card result-card">
-                    <button class="explanation-toggle" id="explanationToggle">
-                        <span>View Rule Explanation</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <!-- Rule Explanation Section -->
+                <section class="explanation-section">
+                    <button class="explanation-toggle-modern" id="explanationToggle">
+                        <div class="toggle-content">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 16v-4"/>
+                                <path d="M12 8h.01"/>
+                            </svg>
+                            <span>View How We Reached This Diagnosis</span>
+                        </div>
+                        <svg class="toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </button>
-                    <div class="explanation-content" id="explanationContent">
-                        <p class="text-muted mb-4">The following rules were applied to generate your diagnosis:</p>
-                        <div id="rulesList">
+                    <div class="explanation-content-modern" id="explanationContent">
+                        <div class="explanation-intro">
+                            <p>Our expert system analyzed your symptoms using a 4-layer forward chaining inference engine. Here are the rules that were applied:</p>
+                        </div>
+                        <div class="rules-list" id="rulesList">
                             <!-- Rules will be inserted here -->
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!-- Disclaimer -->
-                <div class="disclaimer">
-                    <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                        <line x1="12" y1="9" x2="12" y2="13"/>
-                        <line x1="12" y1="17" x2="12.01" y2="17"/>
-                    </svg>
-                    <div class="disclaimer-text">
-                        <strong>Important Notice:</strong> This is an educational expert system and should not replace professional medical advice. The results are based on rule-based inference and may not account for all factors. Please consult a qualified dermatologist for accurate diagnosis and treatment.
+                <div class="disclaimer-modern">
+                    <div class="disclaimer-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <div class="disclaimer-content">
+                        <strong>Important Medical Notice</strong>
+                        <p>This is an educational expert system and should not replace professional medical advice. Please consult a qualified dermatologist for accurate diagnosis and treatment.</p>
                     </div>
                 </div>
 
-                <!-- Report Actions -->
-                <div class="report-actions">
-                    <a href="/diagnosis" class="btn btn-primary">
+                <!-- Action Buttons -->
+                <div class="report-actions-modern">
+                    <a href="/diagnosis" class="btn btn-primary btn-large">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="1 4 1 10 7 10"/>
                             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
                         </svg>
                         New Diagnosis
                     </a>
-                    <a href="/documentation" class="btn btn-secondary">
+                    <a href="/documentation" class="btn btn-outline btn-large">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                             <polyline points="14 2 14 8 20 8"/>
                         </svg>
                         View Documentation
                     </a>
+                    <button class="btn btn-outline btn-large" onclick="window.print()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 6 2 18 2 18 9"/>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                            <rect x="6" y="14" width="12" height="8"/>
+                        </svg>
+                        Print Report
+                    </button>
                 </div>
             </div>
         </div>
@@ -233,6 +284,142 @@
     </div>
 
     <script>
+        // Educational explanations for each recommendation type
+        const explanations = {
+            treatment: {
+                "Topical Corticosteroid": [
+                    "Reduces redness, swelling, and itching",
+                    "Apply thin layer on affected area only",
+                    "Use 1–2 times daily as directed",
+                    "Do not use on broken skin unless advised",
+                    "Avoid long-term use without doctor approval"
+                ],
+                "Antifungal Cream": [
+                    "Kills fungus causing skin infection",
+                    "Apply on clean, dry skin",
+                    "Use regularly until symptoms disappear",
+                    "Do not stop early even if skin improves",
+                    "Wash hands before and after application"
+                ],
+                "Antibiotic Ointment": [
+                    "Treats bacterial skin infections",
+                    "Apply to minor cuts, wounds, or infected areas",
+                    "Use only for a short duration",
+                    "Cover with clean dressing if necessary",
+                    "Stop and consult doctor if irritation occurs"
+                ],
+                "Moisturizer Therapy": [
+                    "Prevents dryness and skin cracking",
+                    "Apply after bathing for better absorption",
+                    "Use fragrance-free products",
+                    "Apply at least twice daily",
+                    "Suitable for long-term skin care"
+                ],
+                "Pain Relief Medication": [
+                    "Helps reduce pain and discomfort",
+                    "Use only when pain is present",
+                    "Follow recommended dosage strictly",
+                    "Avoid mixing with alcohol",
+                    "Seek advice if pain persists"
+                ]
+            },
+            lifestyle: {
+                "Avoid Irritants": [
+                    "Avoid harsh soaps and chemicals",
+                    "Use mild skin-friendly products",
+                    "Wear gloves when handling cleaning agents",
+                    "Avoid perfumes on affected skin",
+                    "Reduce exposure to allergens"
+                ],
+                "Maintain Skin Hygiene": [
+                    "Clean skin gently every day",
+                    "Use clean towels and clothing",
+                    "Dry skin properly after washing",
+                    "Change sweaty clothes promptly",
+                    "Keep wounds clean and covered"
+                ],
+                "Reduce Sun Exposure": [
+                    "Avoid direct sunlight during peak hours",
+                    "Use protective clothing",
+                    "Apply sunscreen if needed",
+                    "Stay in shaded areas",
+                    "Sun exposure may worsen skin irritation"
+                ],
+                "Avoid Scratching": [
+                    "Scratching can worsen infection",
+                    "Keep nails short and clean",
+                    "Use cold compress to reduce itching",
+                    "Wear loose clothing",
+                    "Apply anti-itch treatment if needed"
+                ],
+                "Regular Wound Care": [
+                    "Clean wounds daily",
+                    "Use sterile dressing",
+                    "Monitor for signs of infection",
+                    "Avoid touching wounds unnecessarily",
+                    "Seek help if wound does not heal"
+                ],
+                "Avoid Sharing Personal Items": [
+                    "Do not share towels or clothes",
+                    "Avoid sharing skincare products",
+                    "Wash personal items regularly",
+                    "Prevent spread of infection",
+                    "Keep personal items separate"
+                ],
+                "Seek Medical Attention": [
+                    "If symptoms worsen significantly",
+                    "If pain becomes severe",
+                    "If infection spreads to other areas",
+                    "If fever develops",
+                    "If condition does not improve after treatment"
+                ]
+            },
+            diet: {
+                "Anti-Inflammatory Diet": [
+                    "Helps reduce skin inflammation",
+                    "Include fruits and vegetables daily",
+                    "Eat healthy fats like olive oil",
+                    "Avoid processed foods",
+                    "Supports skin healing naturally"
+                ],
+                "Low Sugar Diet": [
+                    "Reduces inflammation and infection risk",
+                    "Avoid sugary drinks and snacks",
+                    "Choose whole grains instead",
+                    "Helps improve immune function",
+                    "Supports overall skin health"
+                ],
+                "High Protein Diet": [
+                    "Supports skin repair and healing",
+                    "Include eggs, chicken, and legumes",
+                    "Helps regenerate damaged skin",
+                    "Important during recovery phase",
+                    "Balance with vegetables for nutrients"
+                ],
+                "Adequate Hydration": [
+                    "Keeps skin hydrated from inside",
+                    "Drink enough water daily (8 glasses)",
+                    "Helps flush toxins from body",
+                    "Improves skin elasticity",
+                    "Supports overall health and healing"
+                ],
+                "Avoid Peanut Products": [
+                    "Prevents allergic skin reactions",
+                    "Especially important for sensitive patients",
+                    "Read food labels carefully",
+                    "Avoid cross-contaminated foods",
+                    "Consult doctor if unsure about allergies"
+                ],
+                "Avoid Seafood": [
+                    "Reduces risk of allergic flare-ups",
+                    "Common trigger for skin reactions",
+                    "Avoid during active symptoms",
+                    "Reintroduce only with medical advice",
+                    "Monitor skin for improvement"
+                ]
+            }
+        };
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
@@ -260,6 +447,13 @@
             explanationContent.classList.toggle('open');
         });
 
+        // Set current date
+        document.getElementById('reportDate').textContent = `Generated on ${new Date().toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        })}`;
+
         // Load and display results
         document.addEventListener('DOMContentLoaded', async () => {
             const loadingOverlay = document.getElementById('loadingOverlay');
@@ -272,7 +466,7 @@
             if (result) {
                 result = JSON.parse(result);
                 displayResults(result);
-                reportContent.style.display = 'grid';
+                reportContent.style.display = 'block';
             } else {
                 // Try to get from server session
                 loadingOverlay.classList.add('active');
@@ -283,13 +477,13 @@
                     
                     if (data.success || data.disease) {
                         displayResults(data);
-                        reportContent.style.display = 'grid';
+                        reportContent.style.display = 'block';
                     } else {
-                        noResultMessage.style.display = 'block';
+                        noResultMessage.style.display = 'flex';
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    noResultMessage.style.display = 'block';
+                    noResultMessage.style.display = 'flex';
                 }
                 
                 loadingOverlay.classList.remove('active');
@@ -297,20 +491,9 @@
         });
 
         function displayResults(result) {
-            const resultStatus = document.getElementById('resultStatus');
-            const statusText = document.getElementById('statusText');
-            const reportSubtitle = document.getElementById('reportSubtitle');
-
             if (!result.success && !result.disease) {
-                // No diagnosis found
-                resultStatus.classList.remove('success');
-                resultStatus.classList.add('warning');
-                statusText.textContent = 'No Diagnosis Found';
-                reportSubtitle.textContent = result.message || 'Unable to determine a diagnosis based on the provided symptoms.';
-                
                 document.getElementById('diseaseName').textContent = 'Unknown Condition';
                 document.getElementById('diseaseDescription').textContent = 'The expert system could not identify a specific condition based on your symptoms. Please consult a healthcare professional.';
-                
                 return;
             }
 
@@ -323,47 +506,49 @@
             const diseaseTagText = document.getElementById('diseaseTagText');
             
             if (result.contagious) {
-                diseaseTag.classList.remove('not-contagious');
                 diseaseTag.classList.add('contagious');
                 diseaseTagText.textContent = 'Contagious';
-                diseaseTag.querySelector('svg').innerHTML = '<circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/>';
             } else {
-                diseaseTag.classList.remove('contagious');
                 diseaseTag.classList.add('not-contagious');
                 diseaseTagText.textContent = 'Non-Contagious';
             }
 
-            // Treatment List
-            const treatmentList = document.getElementById('treatmentList');
-            treatmentList.innerHTML = '';
+            // Update counts
+            document.getElementById('treatmentCount').textContent = result.treatment ? result.treatment.length : 0;
+            document.getElementById('lifestyleCount').textContent = result.lifestyle ? result.lifestyle.length : 0;
+            document.getElementById('dietCount').textContent = result.diet ? result.diet.length : 0;
+
+            // Treatment Cards
+            const treatmentCards = document.getElementById('treatmentCards');
+            treatmentCards.innerHTML = '';
             if (result.treatment && result.treatment.length > 0) {
                 result.treatment.forEach(item => {
-                    treatmentList.appendChild(createRecommendationItem(item, 'treatment'));
+                    treatmentCards.appendChild(createRecommendationCard(item, 'treatment'));
                 });
             } else {
-                treatmentList.innerHTML = '<li class="recommendation-item"><div class="recommendation-text text-muted">No specific treatment recommendations.</div></li>';
+                treatmentCards.innerHTML = '<p class="no-recommendations">No specific treatment recommendations.</p>';
             }
 
-            // Lifestyle List
-            const lifestyleList = document.getElementById('lifestyleList');
-            lifestyleList.innerHTML = '';
+            // Lifestyle Cards
+            const lifestyleCards = document.getElementById('lifestyleCards');
+            lifestyleCards.innerHTML = '';
             if (result.lifestyle && result.lifestyle.length > 0) {
                 result.lifestyle.forEach(item => {
-                    lifestyleList.appendChild(createRecommendationItem(item, 'lifestyle'));
+                    lifestyleCards.appendChild(createRecommendationCard(item, 'lifestyle'));
                 });
             } else {
-                lifestyleList.innerHTML = '<li class="recommendation-item"><div class="recommendation-text text-muted">No specific lifestyle recommendations.</div></li>';
+                lifestyleCards.innerHTML = '<p class="no-recommendations">No specific lifestyle recommendations.</p>';
             }
 
-            // Diet List
-            const dietList = document.getElementById('dietList');
-            dietList.innerHTML = '';
+            // Diet Cards
+            const dietCards = document.getElementById('dietCards');
+            dietCards.innerHTML = '';
             if (result.diet && result.diet.length > 0) {
                 result.diet.forEach(item => {
-                    dietList.appendChild(createRecommendationItem(item, 'diet'));
+                    dietCards.appendChild(createRecommendationCard(item, 'diet'));
                 });
             } else {
-                dietList.innerHTML = '<li class="recommendation-item"><div class="recommendation-text text-muted">No specific diet recommendations.</div></li>';
+                dietCards.innerHTML = '<p class="no-recommendations">No specific diet recommendations.</p>';
             }
 
             // Rules Explanation
@@ -372,45 +557,68 @@
             if (result.explanation && result.explanation.length > 0) {
                 result.explanation.forEach(rule => {
                     const ruleItem = document.createElement('div');
-                    ruleItem.className = 'rule-item';
+                    ruleItem.className = 'rule-item-modern';
                     ruleItem.innerHTML = `
-                        <div class="rule-header">
-                            <span class="rule-layer">Layer ${rule.layer}</span>
-                            <span class="rule-name">${rule.name}</span>
+                        <div class="rule-header-modern">
+                            <span class="rule-layer-badge">Layer ${rule.layer}</span>
+                            <span class="rule-name-modern">${rule.name}</span>
                         </div>
-                        <div class="rule-logic">${rule.logic} → ${Array.isArray(rule.conclusion) ? rule.conclusion.join(', ') : rule.conclusion}</div>
+                        <div class="rule-logic-modern">${rule.logic} → ${Array.isArray(rule.conclusion) ? rule.conclusion.join(', ') : rule.conclusion}</div>
                     `;
                     rulesList.appendChild(ruleItem);
                 });
             } else {
-                rulesList.innerHTML = '<p class="text-muted">No rules were applied.</p>';
+                rulesList.innerHTML = '<p class="no-rules">No rules were applied.</p>';
             }
         }
 
-        function createRecommendationItem(text, type) {
-            const li = document.createElement('li');
-            li.className = 'recommendation-item';
+        function createRecommendationCard(itemName, type) {
+            const card = document.createElement('div');
+            card.className = `recommendation-card ${type}-card`;
+            
+            const tips = explanations[type][itemName] || [
+                "Follow healthcare provider instructions",
+                "Monitor your symptoms daily",
+                "Report any changes to your doctor",
+                "Be consistent with your routine",
+                "Ask questions if unsure"
+            ];
             
             const iconSvg = getIconForType(type);
+            const colorClass = type;
             
-            li.innerHTML = `
-                <div class="recommendation-icon">
-                    ${iconSvg}
+            card.innerHTML = `
+                <div class="rec-card-header">
+                    <div class="rec-card-icon ${colorClass}">
+                        ${iconSvg}
+                    </div>
+                    <h4 class="rec-card-title">${itemName}</h4>
                 </div>
-                <span class="recommendation-text">${text}</span>
+                <div class="rec-card-body">
+                    <ul class="rec-tips-list">
+                        ${tips.map(tip => `
+                            <li class="rec-tip-item">
+                                <svg class="tip-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                <span>${tip}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
             `;
             
-            return li;
+            return card;
         }
 
         function getIconForType(type) {
             switch(type) {
                 case 'treatment':
-                    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+                    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
                 case 'lifestyle':
-                    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+                    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
                 case 'diet':
-                    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+                    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>';
                 default:
                     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
             }
