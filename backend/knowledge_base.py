@@ -106,7 +106,9 @@ OUTPUT_VARIABLES = {
             'Avoid Irritants',
             'Regular Wound Care',
             'Reduce Sun Exposure',
-            'Seek Medical Attention'
+            'Seek Medical Attention',
+            'Parental Supervision and Assistance',
+            'Caregiver or Guardian Assistance'
         ]
     },
     'diet': {
@@ -379,6 +381,26 @@ LIFESTYLE_RULES = [
         },
         'logic': 'IF Age_Group = Elderly AND Pain',
         'conclusion': ['Regular Wound Care']
+    },
+    {
+        'id': 'rule_l9',
+        'name': 'Child Supervision',
+        'layer': 3,
+        'conditions': {
+            'age_group': 'Child'
+        },
+        'logic': 'IF Age_Group = Child',
+        'conclusion': ['Parental Supervision and Assistance']
+    },
+    {
+        'id': 'rule_l10',
+        'name': 'Elderly Assistance',
+        'layer': 3,
+        'conditions': {
+            'age_group': 'Elderly'
+        },
+        'logic': 'IF Age_Group = Elderly',
+        'conclusion': ['Caregiver or Guardian Assistance']
     }
 ]
 
