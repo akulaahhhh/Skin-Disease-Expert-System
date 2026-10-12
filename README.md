@@ -82,6 +82,12 @@ pip install -r requirements.txt
 python app.py
 ```
 
+### *If an error occurred, run this command
+
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+```
+
 The application will start on `http://localhost:5000`
 
 ## 🎯 How to Use
